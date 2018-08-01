@@ -1,0 +1,42 @@
+{
+  "name": "new-weconnect",
+  "version": "1.0.0",
+  "description": "Project executed with node,express,SQL and fetch API",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danoseun/new-weconnect.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "SQL",
+    "pg",
+    "Fetch",
+    "API"
+  ],
+  "author": "Oluwaseun Somefun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danoseun/new-weconnect/issues"
+  },
+  "homepage": "https://github.com/danoseun/new-weconnect#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.2.0",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "nodemon": "^1.18.3"
+  }
+}
