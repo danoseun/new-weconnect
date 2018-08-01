@@ -4,6 +4,7 @@
   "description": "Project executed with node,express,SQL and fetch API",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon --exec babel-node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,17 +26,17 @@
   },
   "homepage": "https://github.com/danoseun/new-weconnect#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
-    "body-parser": "^1.18.3",
     "eslint": "^5.2.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
-    "morgan": "^1.9.0",
     "nodemon": "^1.18.3"
   }
 }
