@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 3300;
 app.listen(port, () => {
+  /* eslint-disable no-console */
   console.log(`Server is live on PORT: ${port}`);
 });
 
