@@ -1,0 +1,27 @@
+{
+  "name": "new-weconnect",
+  "version": "1.0.0",
+  "description": "Project executed with node,express,SQL and fetch API",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danoseun/new-weconnect.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "SQL",
+    "pg",
+    "Fetch",
+    "API"
+  ],
+  "author": "Oluwaseun Somefun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danoseun/new-weconnect/issues"
+  },
+  "homepage": "https://github.com/danoseun/new-weconnect#readme"
+}
