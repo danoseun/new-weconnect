@@ -6,7 +6,7 @@ const { UserController } = controllers;
 const { signUp } = UserController;
 
 const { UserValidator } = validators;
-const { signUpValidator, loginValidator } = UserValidator;
+const { signUpValidator } = UserValidator;
 
 // Create an instance of the Router object
 const userRouter = express.Router();
