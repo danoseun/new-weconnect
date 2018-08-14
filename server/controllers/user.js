@@ -1,4 +1,4 @@
-import users from '../dummyDb';
+import users from '../dummyDb/user';
 
 /**
  * Class representing UserController
@@ -7,14 +7,13 @@ import users from '../dummyDb';
 
 class UserController {
   /**
-      * Sign user up on the platform
-      *
-      *@static
-      *@param {object} req - The request object
-      *@param {object} res - The response object
-      *@returns {object} JSON object representing success message
-      *@memberof UserController
-      */
+     * Signup a user to the application
+     * @static
+     * @param {object} req - The request object
+     * @param {object} res - The response object
+     * @return {object} JSON object representing success message
+     * @memberof UserController
+     */
   static signUp(req, res) {
     const newUser = {
       id: users.length + 1,
