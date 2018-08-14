@@ -1,6 +1,9 @@
 import express from 'express';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import router from './server/routes';
+
+const { userRouter, defaultRouter } = router;
 
 // Create an instance of express
 const app = express();
@@ -11,6 +14,10 @@ app.use(logger('dev'));
 // Parse incoming data from request object
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Tell express to use the following paths in the application
+app.use('/api/v1', userRouter);
+app.use('/', defaultRouter);
 
 const port = process.env.PORT || 3300;
 app.listen(port, () => {
