@@ -4,7 +4,7 @@ const users = [
     firstName: 'Pelenge',
     lastName: 'John',
     email: 'pelengejohn@gmail.com',
-    username: 'johnpelenge',
+    username: 'johnpelen',
     password: 'jpelenge'
   },
 
@@ -13,7 +13,7 @@ const users = [
     firstName: 'Jason',
     lastName: 'Bourne',
     email: 'jasonbourne@gmail.com',
-    username: 'jasonbourne',
+    username: 'jasonbour',
     password: 'jbourne'
   }
 ];

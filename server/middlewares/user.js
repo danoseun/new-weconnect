@@ -1,4 +1,4 @@
-import users from '../dummyDb';
+import users from '../dummyDb/user';
 
 /**
  * Class representing User Validations
@@ -80,10 +80,10 @@ class UserValidator {
     username = username.toLowerCase().trim();
     if (username.length < 2 || username.length > 10) {
       return res.status(406).json({
-        message: 'username should be 2 to 10 caharacters long'
+        message: 'username should be 2 to 10 characters long'
       });
     }
-    if (username.includes('')) {
+    if (username.includes(' ')) {
       return res.status(406).json({
         message: 'use a single name or word as your username'
       });
@@ -198,6 +198,7 @@ class UserValidator {
     }
     password = password.trim();
     if (foundUser && password !== foundUser.password) {
+      /* eslint-disable no-console */
       console.log('Yo', foundUser);
       console.log('Yoo', foundUser.password);
       return res.status(401).json({
