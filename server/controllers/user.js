@@ -4,7 +4,6 @@ import users from '../dummyDb/user';
  * Class representing UserController
  * @class UserController
  */
-
 class UserController {
   /**
      * Signup a user to the application
