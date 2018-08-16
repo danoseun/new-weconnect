@@ -197,10 +197,12 @@ class UserValidator {
       });
     }
     password = password.trim();
+    /**
+     * If the user details/object is found
+     * and password supplied is not same
+     * as password in the database return error
+     */
     if (foundUser && password !== foundUser.password) {
-      /* eslint-disable no-console */
-      console.log('Yo', foundUser);
-      console.log('Yoo', foundUser.password);
       return res.status(401).json({
         message: 'Incorrect password'
       });
