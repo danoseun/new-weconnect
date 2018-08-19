@@ -34,7 +34,7 @@ class BusinessValidator {
    * @returns {object} JSON object representing failure message
    * @memberof BusinessValidator
    */
-  static createBusinessValidator(req, res, next) {
+  static businessValidator(req, res, next) {
     /* eslint-disable prefer-const */
     let {
       businessName, description, location, category, email, phoneNumber
