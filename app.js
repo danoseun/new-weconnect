@@ -3,7 +3,7 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import router from './server/routes';
 
-const { userRouter, defaultRouter } = router;
+const { userRouter, businessRouter, defaultRouter } = router;
 
 // Create an instance of express
 const app = express();
@@ -17,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Tell express to use the following paths in the application
 app.use('/api/v1', userRouter);
+app.use('/api/v1', businessRouter);
 app.use('/', defaultRouter);
 
 const port = process.env.PORT || 3300;
