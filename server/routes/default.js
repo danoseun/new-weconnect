@@ -11,3 +11,9 @@ defaultRouter.all('*', (req, res) => res.status(404).json({
 }));
 
 export default defaultRouter;
+/**
+ * I think it's better to use export default when
+ * you are importing something that has many things in it into one file
+ * Like a class, while export is better when you are importing something
+ * that will go into different files
+ */

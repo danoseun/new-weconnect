@@ -35,6 +35,44 @@ class BusinessController {
       newBusiness
     });
   }
+
+  /**
+   * Modify Business
+   *
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @returns {object} - JSON object representing success
+   * @memberof BusinessController
+   */
+  static updateBusiness(req, res) {
+    const { foundBusiness } = req.body;
+    /**
+     * I don't know why eslint flags this destructuring below
+     * It says the variables have been declared but not used
+     * Hence the no-unused-vars error and ultimately
+     * what it isn't receiving what is being passed
+     * from the request body
+     */
+    /** let {
+      businessName, description, location, category, email, phoneNumber
+    } = foundBusiness; */
+    const {
+      businessName: reqBusinessName, description: reqDescription, location: reqLocation,
+      category: reqCategory, email: reqEmail,
+      phoneNumber: reqPhoneNumber
+    } = req.body;
+    foundBusiness.businessName = reqBusinessName;
+    foundBusiness.description = reqDescription;
+    foundBusiness.location = reqLocation;
+    foundBusiness.category = reqCategory;
+    foundBusiness.email = reqEmail;
+    foundBusiness.phoneNumber = reqPhoneNumber;
+    return res.status(205).json({
+      message: 'Profile updated successfully',
+      foundBusiness
+    });
+  }
 }
 
 export default BusinessController;
