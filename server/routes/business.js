@@ -3,7 +3,7 @@ import controllers from '../controllers';
 import validators from '../middlewares';
 
 const { BusinessController } = controllers;
-const { registerBusiness } = BusinessController;
+const { registerBusiness, updateBusiness } = BusinessController;
 
 const { BusinessValidator } = validators;
 const { getOneBusiness, businessValidator } = BusinessValidator;
@@ -12,5 +12,6 @@ const { getOneBusiness, businessValidator } = BusinessValidator;
 const businessRouter = express.Router();
 
 businessRouter.post('/businesses', businessValidator, registerBusiness);
+businessRouter.put('/businesses/:businessId', businessValidator, getOneBusiness, updateBusiness);
 
 export default businessRouter;
