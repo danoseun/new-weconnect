@@ -91,6 +91,23 @@ class BusinessController {
       businesses
     });
   }
+
+  /**
+   * Get one Business
+   *
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @returns {object} JSON object representing success
+   * @memberof BusinessController
+   */
+  static getOne(req, res) {
+    const { foundBusiness } = req.body;
+    return res.status(200).json({
+      message: 'Business successfully served',
+      foundBusiness
+    });
+  }
 }
 
 export default BusinessController;
