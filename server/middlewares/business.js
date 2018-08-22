@@ -15,6 +15,13 @@ class BusinessValidator {
      * @memberof BusinessValidator
      */
   static getOneBusiness(req, res, next) {
+    /**
+     * I think I should do a check to see if typeof businessId
+     * is a number then the find will be inside the if block
+     * and so there will be two if statements and two elses
+     * One if will house the if found and else while the other will house the else for the if
+     * i.e if businessId is not a number.
+     */
     const { businessId } = req.params;
     const foundBusiness = businesses.find(business => business.id === parseInt(businessId, 10));
     if (!foundBusiness) {
@@ -53,13 +60,16 @@ class BusinessValidator {
       });
     }
 
-    businessName = businessName.toUpperCase().trim();
-    if (businessName.length < 1 || businessName.lebgth > 30) {
+    businessName = businessName.trim().toLowerCase();
+    console.log('line 64', businessName);
+    if (businessName.length > 100) {
+      console.log('line 66', businessName);
       return res.status(400).json({
-        message: 'Ensure that your business name is between 1 to 30 characters'
+        message: 'Ensure that your business name is between 1 to 100 characters'
       });
     }
-    const alphaNumeric = /^[A-Za-z0-9]+$/;
+    console.log('line 71', businessName);
+    const alphaNumeric = /^[A-Za-z0-9 ]+$/;
     if (!alphaNumeric.test(businessName)) {
       return res.status(400).json({
         message: 'Only alphanumeric characters are allowed'
@@ -74,7 +84,7 @@ class BusinessValidator {
     // description
     if (description === undefined) {
       return res.status(400).json({
-        message: 'Please tell us a brief summary of your business'
+        message: 'Please give us a brief summary of your business'
       });
     }
     if (description === '') {
@@ -141,7 +151,7 @@ class BusinessValidator {
     // Email
     if (email === undefined) {
       return res.status(400).json({
-        message: 'You have made no input'
+        message: 'You have made no input for email'
       });
     }
     if (email === '') {
@@ -177,9 +187,15 @@ class BusinessValidator {
     const phoneNumberChecker = /^\d{11}$/;
     if (!phoneNumberChecker.test(phoneNumber)) {
       return res.status(400).json({
-        message: 'Invalid phone number'
+        message: 'Invalid phone number format'
       });
     }
+    req.body.businessName = businessName;
+    req.body.description = description;
+    req.body.location = location;
+    req.body.category = category;
+    req.body.email = email;
+    req.body.phoneNumber = phoneNumber;
     next();
   }
 }
