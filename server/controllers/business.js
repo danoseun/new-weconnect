@@ -51,7 +51,7 @@ class BusinessController {
      * I don't know why eslint flags this destructuring below
      * It says the variables have been declared but not used
      * Hence the no-unused-vars error and ultimately
-     * what it isn't receiving what is being passed
+     * it isn't receiving what is being passed
      * from the request body
      */
     /** let {
@@ -71,6 +71,24 @@ class BusinessController {
     return res.status(205).json({
       message: 'Profile updated successfully',
       foundBusiness
+    });
+  }
+
+  /**
+   * Delete business
+   *
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @returns {object} JSON object representing success
+   * @memberof BusinessController
+   */
+  static deleteBusiness(req, res) {
+    const { foundBusiness } = req.body;
+    businesses.splice(foundBusiness.id - 1, 1);
+    return res.status(200).json({
+      message: 'Business successfully removed',
+      businesses
     });
   }
 }
