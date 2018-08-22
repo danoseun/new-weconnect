@@ -61,14 +61,11 @@ class BusinessValidator {
     }
 
     businessName = businessName.trim().toLowerCase();
-    console.log('line 64', businessName);
     if (businessName.length > 100) {
-      console.log('line 66', businessName);
       return res.status(400).json({
         message: 'Ensure that your business name is between 1 to 100 characters'
       });
     }
-    console.log('line 71', businessName);
     const alphaNumeric = /^[A-Za-z0-9 ]+$/;
     if (!alphaNumeric.test(businessName)) {
       return res.status(400).json({
