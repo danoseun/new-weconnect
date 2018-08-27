@@ -44,7 +44,8 @@ class ReviewController {
    */
   static getAllReviews(req, res) {
     const { foundBusiness } = req.body;
-    const allReviews = reviews.filter(review => foundBusiness.id === review.businessId);
+    const { id } = foundBusiness;
+    const allReviews = reviews.filter(review => id === review.businessId);
     if (allReviews.length === 0) {
       return res.status(404).json({
         message: 'No reviews found for this business'
