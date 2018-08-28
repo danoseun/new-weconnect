@@ -5,7 +5,7 @@ import validators from '../middlewares';
 const { BusinessController } = controllers;
 const {
   registerBusiness, updateBusiness, deleteBusiness, getOne,
-  getAll
+  getAll, filterSearch
 } = BusinessController;
 
 const { BusinessValidator } = validators;
@@ -18,6 +18,6 @@ businessRouter.post('/businesses', businessValidator, registerBusiness);
 businessRouter.put('/businesses/:businessId', businessValidator, getOneBusiness, updateBusiness);
 businessRouter.delete('/businesses/:businessId', getOneBusiness, deleteBusiness);
 businessRouter.get('/businesses/:businessId', getOneBusiness, getOne);
-businessRouter.get('/businesses', getAll);
+businessRouter.get('/businesses', filterSearch, getAll);
 
 export default businessRouter;
