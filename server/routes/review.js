@@ -3,7 +3,7 @@ import controllers from '../controllers';
 import validators from '../middlewares';
 
 const { ReviewController } = controllers;
-const { postReview } = ReviewController;
+const { postReview, getAllReviews } = ReviewController;
 const { ReviewChecker, BusinessValidator } = validators;
 const { verifyContent } = ReviewChecker;
 const { getOneBusiness } = BusinessValidator;
@@ -13,5 +13,6 @@ const { getOneBusiness } = BusinessValidator;
 const reviewRouter = express.Router();
 
 reviewRouter.post('/businesses/:businessId/reviews', getOneBusiness, verifyContent, postReview);
+reviewRouter.get('/businesses/:businessId/reviews', getOneBusiness, getAllReviews);
 
 export default reviewRouter;
