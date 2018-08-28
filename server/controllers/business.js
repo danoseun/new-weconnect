@@ -124,6 +124,61 @@ class BusinessController {
       businesses
     });
   }
+
+  /**
+   * Filter by location and/or Category
+   *
+   * @static
+   * @param {object} req - The request object
+   * @param {object} res - The response object
+   * @param {function} next - Calls the next route handler
+   * @returns {object} JSON object representing success
+   * @memberof BusinessController
+   */
+  static filterSearch(req, res, next) {
+    const { location, category } = req.query;
+    let locationFilter;
+    let categoryFilter;
+    let filteredArray;
+    if (location && !category) {
+      locationFilter = businesses.filter(business => business.location.toLowerCase()
+      === location.toLowerCase());
+      if (locationFilter.length === 0) {
+        return res.status(404).json({
+          message: 'Location does not exist'
+        });
+      }
+      return res.status(200).json({
+        locationFilter
+      });
+    }
+    if (category && !location) {
+      categoryFilter = businesses.filter(business => business.category.toLowerCase()
+      === category.toLowerCase());
+      if (categoryFilter.length === 0) {
+        return res.status(404).json({
+          message: 'Category does not exist'
+        });
+      }
+      return res.status(200).json({
+        categoryFilter
+      });
+    }
+    if (location && category) {
+      filteredArray = businesses.filter(business => business.location.toLowerCase()
+      === location.toLowerCase()
+      && business.category.toLowerCase() === category.toLowerCase());
+      if (filteredArray.length === 0) {
+        return res.status(404).json({
+          message: 'Location and category matching was not found'
+        });
+      }
+      return res.status(200).json({
+        filteredArray
+      });
+    }
+    next();
+  }
 }
 
 export default BusinessController;
