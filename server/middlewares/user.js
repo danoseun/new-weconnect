@@ -18,80 +18,80 @@ class UserValidator {
     } = req.body;
 
     if (firstName === undefined) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'Pls supply your first name'
       });
     }
 
     if (firstName === '') {
-      return res.status(406).json({
-        message: 'Pls supply your last name'
+      return res.status(400).json({
+        message: 'Pls supply your first name'
       });
     }
     firstName = firstName.trim();
     if (firstName.length < 2 || firstName.length > 20) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'first name should be 2 to 20 characters'
       });
     }
 
     if (lastName === undefined) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'Input field cannot be empty'
       });
     }
 
     if (lastName === '') {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'Input field cannot be empty'
       });
     }
 
     lastName = lastName.trim();
     if (lastName.length < 2 || lastName.length > 20) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'last name should be 2 to 20 characters'
       });
     }
 
     const nameValidCharacters = /^[A-Za-z]+$/;
     if (!nameValidCharacters.test(firstName)) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'first name can only contain alphabets'
       });
     }
     if (!nameValidCharacters.test(lastName)) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'last name can only contain alphabets'
       });
     }
 
     // Username validations
     if (username === undefined) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'Username was not supplied'
       });
     }
     if (username === '') {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'username can not be empty'
       });
     }
     username = username.toLowerCase().trim();
     if (username.length < 2 || username.length > 10) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'username should be 2 to 10 characters long'
       });
     }
     if (username.includes(' ')) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'use a single name or word as your username'
       });
     }
 
     const alphaNumeric = /^[A-Za-z0-9]+$/;
     if (!alphaNumeric.test(username)) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'Username can only contain alphanumeric characters'
       });
     }
@@ -104,12 +104,12 @@ class UserValidator {
     }
 
     if (email === undefined) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'You have made no input for email'
       });
     }
     if (email === '') {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'email cannot be empty'
       });
     }
@@ -117,12 +117,13 @@ class UserValidator {
     /* eslint-disable no-useless-escape */
     const emailVerifier = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
     if (!emailVerifier.test(email)) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'Your email format is invalid'
       });
     }
+    // I discovered that this validation is suspect during unit testing
     if (email.length < 10 || email.length > 30) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'Your email should be 10 to 30 characters long'
       });
     }
@@ -135,19 +136,23 @@ class UserValidator {
 
     // Password validations
     if (password === undefined) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'You have made no input for password'
       });
     }
 
     if (password === '') {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'Password field cannot be empty'
       });
     }
+
+    /** Got an idea during testing again!
+     * Could have wrritten a function
+     * to test password validity with */
     password = password.trim();
     if (password.length > 15) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'Password should not be greater than 15 characters'
       });
     }
@@ -166,13 +171,13 @@ class UserValidator {
   static loginValidator(req, res, next) {
     let { username, password } = req.body;
     if (username === undefined) {
-      return res.status(406).json({
+      return res.status(401).json({
         message: 'You have made no input for username'
       });
     }
 
     if (username === '') {
-      return res.status(406).json({
+      return res.status(401).json({
         message: 'username field cannot be empty'
       });
     }
@@ -181,19 +186,19 @@ class UserValidator {
     const foundUser = users.find(user => user.username === username);
     if (!foundUser) {
       return res.status(401).json({
-        message: 'username does not exist'
+        message: 'Authentication failed'
       });
     }
 
     if (password === undefined) {
-      return res.status(406).json({
-        message: 'No username was supplied'
+      return res.status(401).json({
+        message: 'No password was supplied'
       });
     }
 
     if (password === '') {
-      return res.status(406).json({
-        message: 'password field cannot be empty'
+      return res.status(401).json({
+        message: 'Fill in your password'
       });
     }
     password = password.trim();
@@ -204,7 +209,7 @@ class UserValidator {
      */
     if (foundUser && password !== foundUser.password) {
       return res.status(401).json({
-        message: 'Incorrect password'
+        message: 'Authentication unsuccessful'
       });
     }
     req.body.foundUser = foundUser;
