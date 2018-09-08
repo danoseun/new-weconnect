@@ -125,7 +125,7 @@ class BusinessValidator {
     }
     // Category
     if (category === undefined) {
-      return res.status(406).json({
+      return res.status(400).json({
         message: 'You have made no input for category'
       });
     }

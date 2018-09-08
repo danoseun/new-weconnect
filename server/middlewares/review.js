@@ -29,15 +29,15 @@ class ReviewChecker {
       });
     }
     content = content.toLowerCase().trim();
-    if (content.length >= 3000) {
+    if (content.length > 500) {
       return res.status(400).json({
-        message: 'Please restrict the review to 3000 or less characters'
+        message: 'Please restrict the review to 500 or less characters'
       });
     }
-    const allowedChars = /^[A-Za-z0-9!., ]/;
+    const allowedChars = /^[A-Za-z0-9!., ]+$/;
     if (!allowedChars.test(content)) {
       return res.status(400).json({
-        message: 'This field permits only characters,numbers,!,.'
+        message: 'This field permits only characters,numbers and (!,.)'
       });
     }
     req.body.content = content;
