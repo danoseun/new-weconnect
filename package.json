@@ -1,7 +1,7 @@
 {
   "name": "new-weconnect",
   "version": "1.0.0",
-  "description": "Project executed with node,express,SQL and fetch API",
+  "description": "Project executed with node,express, SQL and fetch API",
   "main": "app.js",
   "scripts": {
     "start": "nodemon --exec babel-node app",
