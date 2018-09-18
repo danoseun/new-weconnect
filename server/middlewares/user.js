@@ -1,4 +1,4 @@
-import users from '../dummyDb/user';
+import db from '../db/query';
 
 /**
  * Class representing User Validations
@@ -96,13 +96,18 @@ class UserValidator {
       });
     }
 
-    const foundUsername = users.find(user => user.username === username);
-    if (foundUsername) {
-      return res.status(409).json({
-        message: 'username already taken'
-      });
-    }
+    db.query('select username from users where username = $1', [username])
+      .then((result) => {
+        if (result.rowCount !== 0) {
+          return res.status(409).json({
+            message: 'Username taken'
+          });
+        }
+      }).catch(error => res.status(500).json({
+        message: error.message
+      }));
 
+    // Email validations
     if (email === undefined) {
       return res.status(400).json({
         message: 'You have made no input for email'
@@ -127,12 +132,23 @@ class UserValidator {
         message: 'Your email should be 10 to 30 characters long'
       });
     }
-    const foundEmail = users.find(user => user.email === email);
+
+    db.query('select email from users where email = $1', [email])
+      .then((result) => {
+        if (result.rowCount !== 0) {
+          return res.status(409).json({
+            message: 'Email taken'
+          });
+        }
+      }).catch(error => res.status(500).json({
+        message: error.message
+      }));
+    /** const foundEmail = users.find(user => user.email === email);
     if (foundEmail) {
       return res.status(409).json({
         message: 'Email already exists!'
       });
-    }
+    } */
 
     // Password validations
     if (password === undefined) {
@@ -156,6 +172,8 @@ class UserValidator {
         message: 'Password should not be greater than 15 characters'
       });
     }
+    req.body.firstName = firstName;
+    req.body.lastName = lastName;
     req.body.username = username;
     req.body.password = password;
     return next();
@@ -181,14 +199,24 @@ class UserValidator {
         message: 'username field cannot be empty'
       });
     }
-
     username = username.toLowerCase().trim();
+    db.query('select username from users where username = $1', [username])
+      .then((result) => {
+        if (result.rowCount === 0) {
+          return res.status(404).json({
+            message: 'Username not found.'
+          });
+        }
+      }).catch(error => res.status(500).json({
+        error: error.message
+      }));
+    /**
     const foundUser = users.find(user => user.username === username);
     if (!foundUser) {
       return res.status(401).json({
         message: 'Authentication failed'
       });
-    }
+    } */
 
     if (password === undefined) {
       return res.status(401).json({
@@ -207,12 +235,12 @@ class UserValidator {
      * and password supplied is not same
      * as password in the database return error
      */
-    if (foundUser && password !== foundUser.password) {
+    /** if (foundUser && password !== foundUser.password) {
       return res.status(401).json({
         message: 'Authentication unsuccessful'
       });
-    }
-    req.body.foundUser = foundUser;
+    } */
+    req.body.username = username;
     req.body.password = password;
     return next();
   }
