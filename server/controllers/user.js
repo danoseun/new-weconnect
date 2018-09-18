@@ -66,11 +66,32 @@ class UserController {
      * @return {object} JSON object representing success message
      * @memberof UserController
      */
-  static login(req, res) {
+  static async login(req, res) {
+    const text = 'SELECT * FROM users WHERE username = $1';
+    const values = [req.body.username];
+    try {
+      const { rows } = await db.query(text, values);
+      if (!rows[0]) {
+        return res.status(400).json({ message: 'The credentials you provided are incorrect' });
+      }
+      if (!helper.comparePassword(rows[0].password, req.body.password)) {
+        return res.status(400).json({ message: 'The credentials you supplied are incorrect' });
+      }
+      const token = helper.generateToken(rows[0].user_id);
+      return res.status(200).json({
+        message: `Welcome ${rows[0].username}`,
+        token
+      });
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
+  /** static login(req, res) {
     const { foundUser } = req.body;
     return res.status(200).json({
       message: `Welcome ${foundUser.username}!`
     });
-  }
+  } */
 }
+
 export default UserController;
