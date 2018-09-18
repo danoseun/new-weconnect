@@ -6,7 +6,7 @@ const createUserTable = `DROP TABLE users CASCADE;
             firstName CHARACTER VARYING(20) NOT NULL,
             lastName CHARACTER VARYING(20) NOT NULL,
             username CHARACTER VARYING(10) UNIQUE NOT NULL,
-            email CHARACTER VARYING(30) UNIQUE NOT NULL,
+            email CHARACTER VARYING(50) UNIQUE NOT NULL,
             password CHARACTER VARYING(255) NOT NULL
         )`;
 
