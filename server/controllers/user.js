@@ -71,6 +71,7 @@ class UserController {
     const values = [req.body.username];
     try {
       const { rows } = await db.query(text, values);
+      console.log('rows', rows);
       if (!rows[0]) {
         return res.status(400).json({ message: 'The credentials you provided are incorrect' });
       }

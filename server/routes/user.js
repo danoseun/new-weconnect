@@ -2,6 +2,7 @@ import express from 'express';
 import controllers from '../controllers';
 import validators from '../middlewares';
 
+
 const { UserController } = controllers;
 const { signUp, login } = UserController;
 
