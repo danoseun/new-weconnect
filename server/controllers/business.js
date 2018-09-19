@@ -1,4 +1,4 @@
-import businesses from '../dummyDb/business';
+import db from '../db/query';
 
 /**
  * Class representing business controller
@@ -15,7 +15,29 @@ class BusinessController {
      * @return {object} JSON representing success message
      * @memberof BusinessController
      */
-  static registerBusiness(req, res) {
+  static async registerBusiness(req, res) {
+    req.body.owner_id = req.user.user_id;
+    const text = 'INSERT INTO businesses(owner_id, businessName, description, email, location, category, phoneNumber) VALUES($1, $2, $3, $4, $5, $6, $7) returning *';
+    const values = [
+      req.body.owner_id,
+      req.body.businessName,
+      req.body.description,
+      req.body.email,
+      req.body.location,
+      req.body.category,
+      req.body.phoneNumber
+    ];
+    try {
+      const { rows } = await db.query(text, values);
+      return res.status(201).json({
+        message: 'Business successfully created',
+        newBusiness: rows[0]
+      });
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  }
+  /** static registerBusiness(req, res) {
     const {
       businessName, description, location, category, email, phoneNumber
     } = req.body;
@@ -34,7 +56,7 @@ class BusinessController {
       message: 'Business successfully created',
       newBusiness
     });
-  }
+  } */
 
   /**
    * Modify Business
