@@ -1,4 +1,4 @@
-import businesses from '../dummyDb/business';
+import db from '../db/query';
 
 /**
  * Class representing Business validator
@@ -72,12 +72,23 @@ class BusinessValidator {
         message: 'Only alphanumeric characters are allowed'
       });
     }
-    const foundBusinessName = businesses.find(business => business.businessName === businessName);
+
+    db.query('select businessName from businesses where businessName = $1', [businessName])
+      .then((result) => {
+        if (result.rowCount !== 0) {
+          return res.status(409).json({
+            message: 'Businessname taken.'
+          });
+        }
+      }).catch(error => res.status(500).json({
+        error: error.message
+      }));
+    /** const foundBusinessName = businesses.find(business => business.businessName === businessName);
     if (foundBusinessName) {
       return res.status(409).json({
         message: 'Business name already exists'
       });
-    }
+    } */
     // description
     if (description === undefined) {
       return res.status(400).json({
@@ -164,12 +175,23 @@ class BusinessValidator {
         message: 'Your email format is invalid'
       });
     }
-    const foundEmail = businesses.find(business => business.email === email);
+
+    db.query('select email from businesses where email = $1', [email])
+      .then((result) => {
+        if (result.rowCount !== 0) {
+          return res.status(409).json({
+            message: 'email already in use on this platform.'
+          });
+        }
+      }).catch(error => res.status(500).json({
+        error: error.message
+      }));
+    /** const foundEmail = businesses.find(business => business.email === email);
     if (foundEmail) {
       return res.status(409).json({
         message: 'Email already exists'
       });
-    }
+    } */
     // Phone number
     if (phoneNumber === undefined) {
       return res.status(400).json({
